@@ -1,5 +1,5 @@
 {
-  "name": "cordova-plugin-shared-preferences",
+  "name": "cordova-plugin-shared-preferences-creativepro",
   "version": "0.0.1",
   "description": "Cordova plugin for Android's Native key value storage system.",
   "scripts": {
@@ -8,7 +8,7 @@
     "prepublish": "npm-run-all clean build"
   },
   "cordova": {
-    "id": "cordova-plugin-shared-preferences",
+    "id": "cordova-plugin-shared-preferences-creativepro",
     "platforms": [
       "android"
     ]
@@ -19,7 +19,7 @@
     "npm-run-all": "^2.1.1",
     "rimraf": "^2.5.2"
   },
-  "repository": "rehy/cordova-plugin-shared-preferences",
+  "repository": "creativeprogramming/cordova-plugin-shared-preferences",
   "keywords": [
     "cordova",
     "preferences",
