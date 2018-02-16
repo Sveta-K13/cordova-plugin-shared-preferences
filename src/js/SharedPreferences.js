@@ -12,6 +12,14 @@ export function getString(key, successCallback, errorCallback) {
   cordova.exec(successCallback, errorCallback, PLUGIN, 'getString', [key])
 }
 
+export function putBoolean(key, string, successCallback, errorCallback) {
+  cordova.exec(successCallback, errorCallback, PLUGIN, 'putBoolean', [key, string])
+}
+
+export function getBoolean(key, successCallback, errorCallback) {
+  cordova.exec(successCallback, errorCallback, PLUGIN, 'getBoolean', [key])
+}
+
 export function remove(key, successCallback, errorCallback){
   cordova.exec(successCallback, errorCallback, PLUGIN, 'remove', [key])
 }
