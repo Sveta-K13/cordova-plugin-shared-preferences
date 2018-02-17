@@ -22,5 +22,6 @@
         </config-file>
         <source-file src="src/android/SharedPreferencesPlugin.java"
             target-dir="src/name/ratson/cordova/plugin" />
+         <framework src="net.grandcentrix.tray:tray:0.12.0" />
     </platform>
 </plugin>
