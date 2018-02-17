@@ -3,6 +3,9 @@ package name.ratson.cordova.plugin;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
+
+import net.grandcentrix.tray.AppPreferences;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -44,6 +47,19 @@ public class SharedPreferencesPlugin extends CordovaPlugin {
     }
 
     private boolean putBoolPref(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        Context context = cordova.getActivity();
+        // create a preference accessor. This is for global app preferences.
+        final AppPreferences appPreferences = new AppPreferences(context); // this Preference comes for free from the library
+        // save a key value pair
+        appPreferences.put(args.getString(0), args.getBoolean(1));
+        // read the value for your key. the second parameter is a fallback (optional otherwise throws)
+       // final String value = appPreferences.getString("key", "default");
+       // Log.v(TAG, "value: " + value); // value: lorem ipsum
+
+        // read a key that isn't saved. returns the default (or throws without default)
+        // final String defaultValue = appPreferences.getString("key2", "default");
+        // Log.v(TAG, "value: " + defaultValue); // value: default
+
         Editor editor = sharedPref.edit();
         try {
             editor.putBoolean(args.getString(0), args.getBoolean(1));
@@ -60,7 +76,7 @@ public class SharedPreferencesPlugin extends CordovaPlugin {
         Boolean keyVal;
         try {
             if (sharedPref.contains(args.getString(0))) {
-                keyVal = sharedPref.getBoolean(args.getString(0), false);
+                keyVal = sharedPref.getBoolean(args.getString(0), args.getBoolean(1));
                 if (keyVal.equals(true)) {
                     callbackContext.success(1);
                 } else {
@@ -152,7 +168,7 @@ public class SharedPreferencesPlugin extends CordovaPlugin {
             return true;
         } else if ("MODE_PRIVATE".equals(modeType)) {
             try {
-                sharedPref = context.getSharedPreferences(prefFile, Context.MODE_APPEND);
+                sharedPref = context.getSharedPreferences(prefFile, Context.MODE_PRIVATE);
             } catch (Exception e) {
                 callbackContext.error("Error creating Shared Preferences" + e.getMessage());
                 return false;
@@ -166,6 +182,11 @@ public class SharedPreferencesPlugin extends CordovaPlugin {
     }
 
     private boolean putStringPref(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        Context context = cordova.getActivity();
+        // create a preference accessor. This is for global app preferences.
+        final AppPreferences appPreferences = new AppPreferences(context); // this Preference comes for free from the library
+        // save a key value pair
+        appPreferences.put(args.getString(0), args.getString(1));
         Editor editor = sharedPref.edit();
         try {
             editor.putString(args.getString(0), args.getString(1));
@@ -182,7 +203,7 @@ public class SharedPreferencesPlugin extends CordovaPlugin {
         String keyVal;
         try {
             if (sharedPref.contains(args.getString(0))) {
-                keyVal = sharedPref.getString(args.getString(0), "");
+                keyVal = sharedPref.getString(args.getString(0), args.getString(1));
                 callbackContext.success(keyVal);
                 return true;
             } else {
